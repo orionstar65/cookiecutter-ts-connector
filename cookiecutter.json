@@ -1,0 +1,10 @@
+{
+  "author": "Orion Star",
+  "username": "orionstar65",
+  "email": "orionstar0605@gmail.com",
+  "name": "Hello Connector",
+  "slug": "{{ cookiecutter.name | slugify }}",
+  "package": "{{ cookiecutter.slug | replace('-', '_') }}",
+  "version": "0.0.0",
+  "description": "Example Connector."
+}
