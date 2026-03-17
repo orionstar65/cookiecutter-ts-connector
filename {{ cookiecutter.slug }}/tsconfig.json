@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    // <!-- START moduleOptions -->
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "target": "ES2022",
+    "esModuleInterop": true,
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    // <!-- END   moduleOptions -->
+
+    // <!-- START emitOptions -->
+    "allowJs": true,
+    "declaration": true,
+    "diagnostics": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    // <!-- END   emitOptions -->
+
+    "paths": {
+      "@{{ cookiecutter.username }}/{{ cookiecutter.slug }}/*": ["./*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.*", "**/*.test.*"]
+}
