@@ -1,0 +1,20 @@
+name: "{{ cookiecutter.slug }}"
+
+services:
+  base: &base
+    build:
+      context: .
+    env_file: ".env"
+    volumes:
+      - "./docker/secrets:/var/secrets"
+
+  app:
+    <<: *base
+    ports:
+      - "8080:8080"
+
+  devbox: &devbox
+    <<: *base
+    entrypoint: "/bin/sh"
+    volumes:
+      - ".:/app"
