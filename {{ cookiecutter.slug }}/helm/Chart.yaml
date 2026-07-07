@@ -1,0 +1,15 @@
+apiVersion: "v2"
+type: "application"
+name: "{{ cookiecutter.slug }}"
+version: 0.0.0
+description: "{{ cookiecutter.description }}"
+home: "https://github.com/{{ cookiecutter.username }}/{{ cookiecutter.slug }}#readme"
+
+maintainers:
+  - name: "{{ cookiecutter.author }}"
+    email: "{{ cookiecutter.email }}"
+
+dependencies:
+  - name: "app-microservice"
+    repository: "oci://ghcr.io/{{ cookiecutter.username }}/helm-charts"
+    version: 0.62.0-1470
