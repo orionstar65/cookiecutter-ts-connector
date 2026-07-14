@@ -1,0 +1,132 @@
+
+# Annotations
+serviceName: "{{ cookiecutter.slug }}"
+fullnameOverride: "int-{{ cookiecutter.slug }}"
+podAnnotations: null
+podLabels: null
+revisionHistoryLimit: 5
+
+# Service
+command: []
+args: []
+image:
+  registry: "ghcr.io/{{ cookiecutter.username }}"
+  repository: "{{ cookiecutter.slug }}"
+  tag: "latest"
+
+configMap:
+  data:
+    listen_port: "8080"
+
+restPort: 8080
+metricsPort: 8080
+
+service:
+  enableREST: true
+  enableGRPC: false
+  enableMetrics: true
+
+# Pod Resources
+replicaCount: 1
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPU: 60
+  targetMemory: 80
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 50%
+  maxUnavailable: ""
+
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: 1
+  limits:
+    memory: "1Gi"
+    cpu: 1
+
+podSecurityContext:
+  enabled: false
+
+containerSecurityContext:
+  enabled: false
+
+updateStrategy:
+  type: "RollingUpdate"
+
+# Environment
+secret: {}
+extraEnvVarsConfigMap: ""
+extraEnvVarsSecret: ""
+serviceEnvVars:
+  - name: "NODE_ENV"
+    value: "production"
+
+  - name: "APP_DEPLOYMENT_NAME"
+    value: "app-platform"
+
+  - name: "APP_SECRETS"
+    value: "/app/secrets"
+
+  - name: "APP_CRYPTO"
+    value: "/app/secrets/crypto.json"
+
+  - name: "APP_REST_LISTEN_PORT"
+    value: "8080"
+
+  - name: "APP_ACC_HOSTPORT"
+    value: "http://ext-access.svc.cluster.local:8080"
+
+# Volumes
+extraVolumes:
+  - name: "int-{{ cookiecutter.slug }}-configs"
+    configMap:
+      name: "int-{{ cookiecutter.slug }}"
+
+extraVolumeMounts:
+  - name: "int-{{ cookiecutter.slug }}-configs"
+    mountPath: "/app/conf"
+
+# Healthchecks
+startupProbe:
+  httpGet:
+    path: /alive
+    port: 8080
+  # Allow up to 3m
+  failureThreshold: 36
+  periodSeconds: 5
+
+livenessProbe:
+  httpGet:
+    path: "/alive"
+    port: 8080
+
+  initialDelaySeconds: 120
+  periodSeconds: 3
+  timeoutSeconds: 2
+  successThreshold: 1
+  failureThreshold: 7
+
+readinessProbe:
+  httpGet:
+    path: "/ready"
+    port: 8080
+
+  initialDelaySeconds: 120
+  periodSeconds: 3
+  timeoutSeconds: 2
+  successThreshold: 2
+  failureThreshold: 7
+
+# Ingress
+ingress:
+  hosts:
+    - "int-{{ cookiecutter.slug }}.svc.cluster.local"
+  gateways: []
+  HTTPRoutes:
+    - match:
+        - port: 8080
