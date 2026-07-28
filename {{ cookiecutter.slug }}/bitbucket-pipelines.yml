@@ -1,0 +1,82 @@
+image:
+  name: ghcr.io/{{ cookiecutter.username }}/gcloud-sdk-plus:0.14.0-main.1236
+  username: _json_key_base64
+  password: $SA_HELM_GCLOUD_API_KEYFILE
+
+options:
+  docker: true
+  max-time: 5
+
+definitions:
+  caches:
+    secrets: "/var/secrets"
+
+  step:
+    - step: &base-step
+        caches:
+          - docker
+          - node
+          - secrets
+        services:
+          - docker
+
+    - step: &init
+        <<: *base-step
+        name: Init
+        artifacts:
+          - dist/**
+          - node_modules/**
+        script:
+          - source ./profile.sh
+          - npm run login
+          - npm install
+          - npm run build
+
+    - step: &test
+        <<: *base-step
+        name: Test
+        script:
+          - source ./profile.sh
+          - npm run login
+          - npm install
+          - npm run lint
+          - npm run test
+
+    - step: &release-docker
+        <<: *base-step
+        name: Release Docker
+        artifacts:
+          - docker/**
+        script:
+          - ./docker/release.sh
+
+    # ! ALERT: You MUST change the chart (at least 'version') to trigger
+    - step: &release-helm
+        <<: *base-step
+        name: Release Helm
+        condition:
+          changesets:
+            includePaths:
+              - "helm/Chart.yaml"
+        script:
+          - ./helm/release.sh
+
+pipelines:
+  default:
+    - step: *init
+    - step: *test
+    - step: *release-docker
+
+  branches:
+    main:
+      - step: *init
+      - step: *test
+      - step: *release-docker
+      - step: *release-helm
+
+  tags:
+    v*:
+      - step: *init
+      - step: *test
+      - step: *release-docker
+
