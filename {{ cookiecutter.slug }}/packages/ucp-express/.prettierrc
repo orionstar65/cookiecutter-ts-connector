@@ -1,0 +1,15 @@
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "arrowParens": "always",
+  "trailingComma": "all",
+  "jsxSingleQuote": false,
+  "semi": true,
+  "proseWrap": "always",
+  "objectWrap": "collapse",
+  "bracketSpacing": true,
+  "overrides": [
+    { "files": ["*.ts", "*.tsx"], "options": { "parser": "typescript" } }
+  ]
+}

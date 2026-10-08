@@ -1,0 +1,26 @@
+# Backend TypeScript .gitignore
+.scratch
+
+# **Environment**
+.env*
+
+# **Build**
+build
+dist
+node_modules
+*.tgz
+*.tsbuildinfo
+
+# **Test**
+coverage
+
+# **Runtime**
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# **Diagnostic**
+logs
+*.log
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

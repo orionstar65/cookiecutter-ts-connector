@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/node-lts/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@ucp/ucp-express": ["./src"]
+    },
+
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "declaration": true,
+    "diagnostics": true,
+    "lib": ["dom"],
+    "types": ["node", "vitest/config"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "docs", "**/*.spec.*", "**/*.test.*"]
+}
