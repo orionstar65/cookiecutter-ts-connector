@@ -1,0 +1,37 @@
+{
+  "type": "module",
+  "name": "@ucp/api-schema-connect",
+  "version": "0.0.1",
+  "description": "UCP API service Connect/protobuf definitions.",
+  "exports": {
+    "./*": "./dist/ucp/api/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/orionstar65/cookiecutter-typescript-connector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orionstar65/cookiecutter-typescript-connector.git"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.2.3",
+    "@connectrpc/connect": "^2.0.1",
+    "@connectrpc/connect-node": "^2.0.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "prettier": "^3.5.1"
+  },
+  "scripts": {
+    "activate": "./profile.sh",
+    "format": "npx prettier --write dist",
+    "get:name": "npm pkg get name --workspaces=false | tr -d \\\"",
+    "get:semver": "npm pkg get version --workspaces=false | tr -d \\\"",
+    "get:semver:tag": "version=$(npm run version --silent) && echo \"v${version}\"",
+    "get:home": "npm pkg get homepage --workspaces=false | tr -d \\\"",
+    "postversion": "git push && git push --tags"
+  }
+}
