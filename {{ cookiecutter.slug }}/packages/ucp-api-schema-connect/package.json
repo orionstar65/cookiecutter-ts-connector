@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "description": "UCP API service Connect/protobuf definitions.",
   "exports": {
-    "./*": "./dist/ucp/api/*"
+    "./*": "./lib/ucp/api/*"
   },
   "files": [
-    "dist"
+    "lib"
   ],
   "homepage": "https://github.com/orionstar65/cookiecutter-typescript-connector#readme",
   "repository": {
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "activate": "./profile.sh",
-    "format": "npx prettier --write dist",
+    "format": "npx prettier --write lib",
     "get:name": "npm pkg get name --workspaces=false | tr -d \\\"",
     "get:semver": "npm pkg get version --workspaces=false | tr -d \\\"",
     "get:semver:tag": "version=$(npm run version --silent) && echo \"v${version}\"",
