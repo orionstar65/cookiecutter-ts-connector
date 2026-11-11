@@ -44,7 +44,7 @@ TypeScript services use a mixture of `private` and `public` ESM modules.
 
 In order to ensure repeatable installs of private modules (if you use any),
 `package.json` provides optional `login` scripts for registry and container
-auth (configured in `.npmrc` and your cloud provider).
+auth (configured in `.npmrc.example` / generated `.npmrc` and your cloud provider).
 
 The following scripts can help engineers:
 
