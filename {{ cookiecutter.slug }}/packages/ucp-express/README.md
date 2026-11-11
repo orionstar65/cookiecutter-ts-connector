@@ -176,4 +176,4 @@ The package is then available in the UCP Google Artifact Registry.
 
 ## License
 
-UNLICENSED — proprietary to UCP.
+MIT
